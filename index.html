@@ -2,18 +2,32 @@
 <video id="video-preview" autoplay muted></video>
 <img id="captured-image" />
 <button id="capture-button">Capture</button>
+<button id="toggle-camera-button">Start/Stop Camera</button>
 
 <script>
   // JavaScript
-  var videoPreview = document.getElementById('video-preview');
+  var toggleCameraButton = document.getElementById('toggle-camera-button');
   var captureButton = document.getElementById('capture-button');
-  navigator.mediaDevices.getUserMedia({ video: true })
-    .then(function(stream) {
-        videoPreview.srcObject = stream;
-    })
-    .catch(function(error) {
-        console.error('Error opening camera:', error);
-    });
+  var videoPreview = document.getElementById('video-preview');
+
+  toggleCameraButton.addEventListener('click', function() {
+    if (videoPreview.srcObject) {
+      // Stop the camera
+      videoPreview.srcObject.getTracks().forEach(function(track) {
+        track.stop();
+      });
+      videoPreview.srcObject = null;
+    } else {
+      // Start the camera
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+          videoPreview.srcObject = stream;
+        })
+        .catch(function(error) {
+          console.error('Error accessing camera:', error);
+        });
+    }
+  });
 
   captureButton.addEventListener('click', function() {
     // Create a canvas element
