@@ -46,5 +46,17 @@
 
     // Set the src attribute of the img element to the data URL
     document.getElementById('captured-image').src = imageDataUrl;
+
+    // Send the image data to the API
+  fetch('/api/upload-image', {
+    method: 'POST',
+    body: imageDataUrl
+  })
+    .then(function(response) {
+      console.log('Image uploaded:', response);
+    })
+    .catch(function(error) {
+      console.error('Error uploading image:', error);
+    });
   });
 </script>
