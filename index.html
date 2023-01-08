@@ -1,62 +1,75 @@
-<!-- HTML -->
-<video id="video-preview" autoplay muted></video>
-<img id="captured-image" />
-<button id="capture-button">Capture</button>
-<button id="toggle-camera-button">Start/Stop Camera</button>
+<html>
+<head>
+  <title>Camera and File Upload</title>
+</head>
+<body>
+  <div>
+    <h1>Take Picture:</h1>
+    <video id="video" width="640" height="480" autoplay></video>
+    <br>
+    <button id="capture" onclick="captureImage()">Capture</button>
+  </div>
+  <br>
+  <div>
+    <h1>Choose File:</h1>
+    <input type="file" id="fileInput" multiple onchange="uploadFiles()"/>
+  </div>
+  <!-- <br>
+  <div>
+    <h1>Drag and Drop:</h1>
+    <div id="dropArea">Drop files here</div>
+  </div> -->
+  <script>
+    const video = document.getElementById('video');
+    const captureButton = document.getElementById('capture');
+    const canvas = document.createElement('canvas');
 
-<script>
-  // JavaScript
-  var toggleCameraButton = document.getElementById('toggle-camera-button');
-  var captureButton = document.getElementById('capture-button');
-  var videoPreview = document.getElementById('video-preview');
-
-  toggleCameraButton.addEventListener('click', function() {
-    if (videoPreview.srcObject) {
-      // Stop the camera
-      videoPreview.srcObject.getTracks().forEach(function(track) {
-        track.stop();
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
       });
-      videoPreview.srcObject = null;
-    } else {
-      // Start the camera
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then(function(stream) {
-          videoPreview.srcObject = stream;
-        })
-        .catch(function(error) {
-          console.error('Error accessing camera:', error);
-        });
+
+    const captureImage = () => {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      canvas.getContext('2d').drawImage(video, 0, 0);
+      const imgUrl = canvas.toDataURL();
+      sendImageToAPI(imgUrl);
     }
-  });
 
-  captureButton.addEventListener('click', function() {
-    // Create a canvas element
-    var canvas = document.createElement('canvas');
-    var context = canvas.getContext('2d');
+    const uploadFiles = () => {
+      const files = document.getElementById('fileInput').files;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const imgUrl = e.target.result;
+          sendImageToAPI(imgUrl);
+        }
+        reader.readAsDataURL(file);
+      }
+    };
 
-    // Set the size of the canvas to the same size as the camera preview
-    canvas.width = videoPreview.videoWidth;
-    canvas.height = videoPreview.videoHeight;
-
-    // Draw the current frame of the camera preview on the canvas
-    context.drawImage(videoPreview, 0, 0);
-
-    // Get the data URL of the canvas
-    var imageDataUrl = canvas.toDataURL();
-
-    // Set the src attribute of the img element to the data URL
-    document.getElementById('captured-image').src = imageDataUrl;
-
-    // Send the image data to the API
-  fetch('/api/upload-image', {
+function sendImageToAPI(imgUrl) {
+  const apiUrl = 'https://zv5qlffuqc.execute-api.us-east-1.amazonaws.com/dev/upload_face_img';
+  const data = {
+    image: imgUrl,
+    file_name: 'hemanth.jpg',
+  };
+  console.log(data)
+  fetch(apiUrl, {
     method: 'POST',
-    body: imageDataUrl
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json',
+    },
   })
-    .then(function(response) {
-      console.log('Image uploaded:', response);
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
     })
-    .catch(function(error) {
-      console.error('Error uploading image:', error);
+    .catch(error => {
+      console.error('Error:', error);
     });
-  });
+}
 </script>
