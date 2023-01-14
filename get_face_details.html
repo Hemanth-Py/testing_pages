@@ -18,6 +18,7 @@
       </div>
     <button class="btn btn-primary col-md-3" id="capture" onclick="captureImage()">Get Details</button>
     </div>
+    <div id="data-container"></div>
   </div>
 
 
@@ -93,9 +94,19 @@
       })
         .then(response => response.json())
         .then(data => {
-          console.log('Success:', data);
+          // Get the element to display the data
+          var container = document.getElementById("data-container");
+          // Loop through the data and create HTML elements to display it
+          data.forEach(item => {
+            var div = document.createElement("div");
+            div.innerHTML = `<p>Name: ${item.name}</p>
+                             <p>Email: ${item.emailId}</p>
+                             <p>bookingId: ${item.bookingId}</p>
+                             <p>Phone: ${item.phone}</p>`;
+            container.appendChild(div);
+          });
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('Error:', error);
         });
     }
