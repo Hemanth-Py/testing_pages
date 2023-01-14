@@ -12,7 +12,7 @@
   <div class="container text-light">
     <div class="row my-5">
       <div class=" align-self-center">
-        <video class="col-md-8 border border-light" id="videoPreview"  autoplay></video>
+        <video class="col-md-6 border border-light" id="videoPreview"  autoplay></video>
         <br>
         <button class="btn m-3 btn-success" id="toggle-camera-button" onclick="changeButton()">Start Camera</button>
       </div>
@@ -96,15 +96,14 @@
         .then(data => {
           // Get the element to display the data
           var container = document.getElementById("data-container");
+          console.log(data)
           // Loop through the data and create HTML elements to display it
-          data.forEach(item => {
             var div = document.createElement("div");
-            div.innerHTML = `<p>Name: ${item.name}</p>
-                             <p>Email: ${item.emailId}</p>
-                             <p>bookingId: ${item.bookingId}</p>
-                             <p>Phone: ${item.phone}</p>`;
-            container.appendChild(div);
-          });
+            container.innerHTML = `<p>Name: ${data.name}</p>
+                             <p>Email: ${data.emailId}</p>
+                             <p>bookingId: ${data.bookingId}</p>
+                             <p>Phone: ${data.phone}</p>`;
+            console.log(container)
         })
         .catch((error) => {
           console.error('Error:', error);
