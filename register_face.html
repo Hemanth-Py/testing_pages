@@ -61,8 +61,7 @@ function sendImageToAPI(imgUrl) {
     method: 'POST',
     body: JSON.stringify(data),
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*'
+      'Content-Type': 'application/json'
     },
   })
     .then(response => response.json())
