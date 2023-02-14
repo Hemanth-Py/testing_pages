@@ -3,7 +3,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // const stripe = Stripe('pk_test_51MUqw7SG3wK40Fpy1BptUs4jHEwUsdXf8g7ZjREwIYpPC2SYxJKkblUJaC4p4PX1o4mRqmmALtfmFAHJzihop97U00LFj22gfN');
     
     // hemanth test
-    const stripe = Stripe("pk_test_51MTIndSC5HaNtnJLf7AGxJdEQL78HFYsIU8grt3utWbHE5fM1PpGLyRI210C7BrRXp97xIW7QIFc8y8tS0pSMUyq00MEst7cA4")
+    // const stripe = Stripe("pk_test_51MTIndSC5HaNtnJLf7AGxJdEQL78HFYsIU8grt3utWbHE5fM1PpGLyRI210C7BrRXp97xIW7QIFc8y8tS0pSMUyq00MEst7cA4")
+
+    // codeops
+    const stripe = Stripe("pk_test_51MCNLWSHKmhNN06eK2nhUOXeZSKMlS50dgY41nyZXvROSp4BLUgPUGfzrT7i7wQTY3ePNIJKPW5xXAF0xpFzppyu00wyiQtft9");
+
     const params = new URLSearchParams(window.location.href)
     const clientSecret = params.get('payment_intent_client_secret')
 
