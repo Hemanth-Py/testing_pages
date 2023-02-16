@@ -6,7 +6,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     // const stripe = Stripe("pk_test_51MTIndSC5HaNtnJLf7AGxJdEQL78HFYsIU8grt3utWbHE5fM1PpGLyRI210C7BrRXp97xIW7QIFc8y8tS0pSMUyq00MEst7cA4")
 
     // codeops
-    const stripe = Stripe("pk_test_51MCNLWSHKmhNN06eK2nhUOXeZSKMlS50dgY41nyZXvROSp4BLUgPUGfzrT7i7wQTY3ePNIJKPW5xXAF0xpFzppyu00wyiQtft9");
+    // const stripe = Stripe("pk_test_51MCNLWSHKmhNN06eK2nhUOXeZSKMlS50dgY41nyZXvROSp4BLUgPUGfzrT7i7wQTY3ePNIJKPW5xXAF0xpFzppyu00wyiQtft9");
+
+    // knofhub
+    const stripe = Stripe("pk_test_51MTmTySEyw5Of2ovYJUlVlCNHbz2cssZHqH6xlp1eL7lw82ezygOabmrB8aoRBGlDGgdlhvRDCE0kF1l0IvacQwz00e4hLvmJP");
 
     const params = new URLSearchParams(window.location.href)
     const clientSecret = params.get('payment_intent_client_secret')
