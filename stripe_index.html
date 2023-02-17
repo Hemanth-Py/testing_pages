@@ -95,9 +95,15 @@
             console.log(JSON.stringify(ApiResponse))
 
         var clientSecret = data['message']
-        var elements = stripe.elements({clientSecret});
+        const appearance = {
+    theme: 'stripe',
+  };
+  elements = stripe.elements({ appearance, clientSecret });
         console.log(elements);
-        const paymentElement = elements.create('payment');
+        const paymentElementOptions = {
+    layout: "tabs",
+  };
+        const paymentElement = elements.create('payment',paymentElementOptions);
         paymentElement.mount('#payment-element');
 
         var submitButton = document.getElementById("submit-button");
