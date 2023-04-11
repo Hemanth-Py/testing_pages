@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const kk_europe_account = "acct_1MbldyDmnuIRhPem"
     const kh_support_dev = "pk_test_51MTmTySEyw5Of2ovYJUlVlCNHbz2cssZHqH6xlp1eL7lw82ezygOabmrB8aoRBGlDGgdlhvRDCE0kF1l0IvacQwz00e4hLvmJP"
     const kh_support_prod = "pk_live_51MTmTySEyw5Of2ovo1zdspkeK3PnODkkePlL2QVJQRmQID57vG4V8HwDaMRcdAf9ldFBVGvAVw97XFGJPzfdqUh800PqJFBsi5"
-    const stripe = Stripe(kh_support_prod, {stripeAccount: kk_europe_account});
+    const stripe = Stripe(kh_support_dev);
 
     const params = new URLSearchParams(window.location.href)
     const clientSecret = params.get('payment_intent_client_secret')
@@ -26,18 +26,18 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     paymentIntentPre.innerText = JSON.stringify(paymentIntent, null, 2)
 
-    fetch('https://fi9tv7oval.execute-api.us-east-1.amazonaws.com/dev/capture-payment', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({payment_intent_id: paymentIntent.id})
-    }).then(function (response) { 
+    // fetch('https://fi9tv7oval.execute-api.us-east-1.amazonaws.com/dev/capture-payment', {
+    //       method: 'POST',
+    //       headers: { 'Content-Type': 'application/json' },
+    //       body: JSON.stringify({payment_intent_id: paymentIntent.id})
+    // }).then(function (response) { 
 
-        const capturePre = document.getElementById('capture-payment')
+    //     const capturePre = document.getElementById('capture-payment')
     
-        capturePre.innerText = "Capture Successful"
+    //     capturePre.innerText = "Capture Successful"
     
 
-    });
+    // });
     
 
 
