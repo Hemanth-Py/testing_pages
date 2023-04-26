@@ -14,8 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const kh_support = 'acct_1MTmTySEyw5Of2ov'
     const kk_europe_account = "acct_1MbldyDmnuIRhPem"
     const kh_support_dev = "pk_test_51MTmTySEyw5Of2ovYJUlVlCNHbz2cssZHqH6xlp1eL7lw82ezygOabmrB8aoRBGlDGgdlhvRDCE0kF1l0IvacQwz00e4hLvmJP"
-    const kh_support_prod = "pk_live_51MTmTySEyw5Of2ovo1zdspkeK3PnODkkePlL2QVJQRmQID57vG4V8HwDaMRcdAf9ldFBVGvAVw97XFGJPzfdqUh800PqJFBsi5"
-    const stripe = Stripe(kh_support_dev);
+    const stripe = Stripe(kh_support_dev, {stripeAccount: kk_europe_account});
 
     const params = new URLSearchParams(window.location.href)
     const clientSecret = params.get('payment_intent_client_secret')
